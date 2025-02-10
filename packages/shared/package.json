@@ -1,0 +1,11 @@
+{
+	"name": "@book-search/shared",
+	"private": false,
+	"version": "1.0.0",
+	"main": "src/index.ts",
+	"main:src": "src/index.ts",
+	"license": "MIT",
+	"devDependencies": {
+		"typescript": "4.7.4"
+	}
+}

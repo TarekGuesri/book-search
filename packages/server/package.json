@@ -11,7 +11,7 @@
     "test": "jest",
     "test:cov": "jest --coverage",
     "test:cov:watch": "jest --coverage --watchAll",
-    "lint:check": "tsc --noEmit && eslint \"**/*.{js,ts}\"",
+    "lint": "tsc --noEmit && eslint \"**/*.{js,ts}\"",
     "lint:fix": "tsc --noEmit && eslint \"**/*.{js,ts}\" --quiet --fix",
     "build": "tsc -p ."
   },
@@ -39,7 +39,8 @@
     "express": "^4.21.2",
     "express-rate-limit": "^7.5.0",
     "helmet": "^8.0.0",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "@book-search/shared": "1.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.26.8",

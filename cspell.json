@@ -22,7 +22,7 @@
 		"endregion",
 		"nestjs",
 		"commitlint",
-		"signin",
+		"tanstack",
 		"mockdata",
 		"svgr",
 		"prebuild"
