@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { useSearchParams } from 'react-router-dom';
 import axios from 'axios';
-import type { Book } from '@book-search/shared';
+import type { Book, SortType } from '@book-search/shared';
 import { QueryKeys } from '@constants/QueryKeys';
 
 interface BooksResponse {
@@ -13,6 +13,7 @@ interface FetchBooksParams {
 	page: number;
 	limit: number;
 	q: string;
+	sort?: SortType;
 }
 
 async function fetchBooks(params: FetchBooksParams): Promise<BooksResponse> {
@@ -28,6 +29,10 @@ export function useBooks() {
 		limit: Number(searchParams.get('limit')) || 5,
 		q: searchParams.get('q') || '',
 	};
+
+	if (searchParams.get('sort')) {
+		params.sort = searchParams.get('sort') as SortType;
+	}
 
 	return useQuery<BooksResponse>({
 		queryKey: [QueryKeys.Books, params],

@@ -7,10 +7,12 @@ export const getBooks = async (
   _req: Request,
   res: Response,
 ): Promise<Response> => {
-  const { q, limit, page } = _req.query;
+  const { q, limit, page, sort } = _req.query;
 
   const { data } = await axios.get(
-    `https://openlibrary.org/search.json?q=${q}&limit=${limit}&page=${page}&fields=*,rating,olid,first_sentence`,
+    `https://openlibrary.org/search.json?q=${q}&limit=${limit}&page=${page}&${
+      sort ? `sort=${sort}&` : ''
+    }fields=*,rating,olid,first_sentence`,
     {},
   );
 
@@ -30,7 +32,13 @@ export const getBooks = async (
 
   const rowCount = data.numFound;
 
-  console.log({ books, rowCount });
+  console.log({
+    books,
+    rowCount,
+    url: `https://openlibrary.org/search.json?q=${q}&limit=${limit}&page=${page}&${
+      sort ? `sort=${sort}&` : ''
+    }fields=*,rating,olid,first_sentence`,
+  });
 
   return res.json({
     data: books,
