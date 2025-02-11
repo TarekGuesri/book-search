@@ -11,9 +11,9 @@ import { SearchInput } from '@atoms/SearchInput/SearchInput';
 import { TableView } from '@templates/TableView/TableView';
 
 const columns: GridColDef[] = [
-	{ field: 'title', headerName: 'Title', width: 200 },
+	{ field: 'title', headerName: 'Title', width: 250 },
 	{ field: 'author', headerName: 'Author', width: 200 },
-	{ field: 'publishedYear', headerName: 'Published Year', width: 150 },
+	{ field: 'publishedYear', headerName: 'Published Year', width: 130 },
 	{ field: 'rating', headerName: 'Rating', width: 70 },
 	{ field: 'firstSentence', headerName: 'First sentence', flex: 1 },
 ];
@@ -113,6 +113,7 @@ function App() {
 			) : (
 				<TableView
 					searchInput={searchInput}
+					inputRef={searchInputRef}
 					handleSearchChange={handleSearchChange}
 					sort={sort}
 					handleChange={handleChange}

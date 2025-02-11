@@ -12,11 +12,13 @@ import {
 import type { GridColDef } from '@mui/x-data-grid';
 import { DataGrid } from '@mui/x-data-grid';
 import type { Book } from '@book-search/shared';
+import type { RefObject } from 'react';
 import { LogoSVG } from '@atoms/Logo/Logo';
 import { SearchInput } from '@atoms/SearchInput/SearchInput';
 
 interface TableViewProps {
 	searchInput: string;
+	inputRef?: RefObject<HTMLInputElement>;
 	handleSearchChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 	sort: string;
 	handleChange: (event: SelectChangeEvent) => void;
@@ -34,6 +36,7 @@ interface TableViewProps {
 
 export function TableView({
 	searchInput,
+	inputRef,
 	handleSearchChange,
 	sort,
 	handleChange,
@@ -69,6 +72,7 @@ export function TableView({
 					}}
 				>
 					<SearchInput
+						inputRef={inputRef}
 						value={searchInput}
 						onChange={handleSearchChange}
 						sx={{ width: { xs: '100%', sm: 323 } }}
@@ -90,7 +94,7 @@ export function TableView({
 				<DataGrid
 					paginationMode='server'
 					localeText={{
-						noRowsLabel: 'No books found',
+						noRowsLabel: 'No books found!',
 					}}
 					rows={data?.data || []}
 					columns={columns}

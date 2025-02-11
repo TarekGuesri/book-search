@@ -25,6 +25,8 @@
 		"tanstack",
 		"mockdata",
 		"svgr",
+		"vite",
+		"toastify",
 		"prebuild"
 	]
 }
