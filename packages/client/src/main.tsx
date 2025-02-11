@@ -5,8 +5,6 @@ import axios from 'axios';
 import App from './App';
 import { AppProviders } from '@atoms/AppProviders';
 
-console.log({ mode: import.meta.env.PROD });
-
 if (import.meta.env.PROD) {
 	if (!import.meta.env.VITE_BACKEND_URL_PROD) {
 		throw new Error('VITE_BACKEND_URL_PROD is not set');
