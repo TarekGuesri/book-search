@@ -1,15 +1,17 @@
-import type { FC } from 'react';
+import type { CSSProperties, FC } from 'react';
 
 interface LogoSVGProps {
 	width?: number | string;
 	height?: number | string;
 	fill?: string;
+	style?: CSSProperties;
 }
 
 export const LogoSVG: FC<LogoSVGProps> = ({
 	width = 120,
 	height = 39,
 	fill = 'none',
+	style,
 	...props
 }) => (
 	<svg
@@ -17,6 +19,8 @@ export const LogoSVG: FC<LogoSVGProps> = ({
 		width={width}
 		height={height}
 		fill={fill}
+		style={style}
+		viewBox='0 0 120 39'
 		{...props}
 	>
 		<g clipPath='url(#a)'>

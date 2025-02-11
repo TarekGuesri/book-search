@@ -37,7 +37,8 @@ export function useBooks() {
 	return useQuery<BooksResponse>({
 		queryKey: [QueryKeys.Books, params],
 		queryFn: () => fetchBooks(params),
-		staleTime: 300000,
+		staleTime: 300 * 1000,
 		retry: 1,
+		enabled: !!params.q,
 	});
 }

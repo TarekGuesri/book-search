@@ -1,22 +1,14 @@
 import type { SelectChangeEvent } from '@mui/material';
-import {
-	FormControl,
-	InputAdornment,
-	InputLabel,
-	MenuItem,
-	Select,
-	TextField,
-} from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
+import { Box, Container, Typography } from '@mui/material';
 import type { GridColDef } from '@mui/x-data-grid';
-import { DataGrid } from '@mui/x-data-grid';
-import Paper from '@mui/material/Paper';
 import { useSearchParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useDebounce } from 'use-debounce';
 import type { SortType } from '@book-search/shared';
 import { LogoSVG } from '@atoms/Logo/Logo';
 import { useBooks } from '@hooks/useBooks';
+import { SearchInput } from '@atoms/SearchInput/SearchInput';
+import { TableView } from '@templates/TableView/TableView';
 
 const columns: GridColDef[] = [
 	{ field: 'title', headerName: 'Title', width: 200 },
@@ -33,7 +25,7 @@ function App() {
 	);
 	const [searchInput, setSearchInput] = useState(searchParams.get('q') || '');
 	const [prevRowCount, setPrevRowCount] = useState(0);
-
+	const searchInputRef = useRef<HTMLInputElement>(null);
 	const page = Number(searchParams.get('page')) || 1;
 	const pageSize = Number(searchParams.get('limit')) || 5;
 
@@ -78,6 +70,12 @@ function App() {
 	};
 
 	useEffect(() => {
+		if (searchInputRef.current) {
+			searchInputRef.current.focus();
+		}
+	}, [searchInput]);
+
+	useEffect(() => {
 		if (data?.rowCount !== undefined) {
 			setPrevRowCount(data.rowCount);
 		}
@@ -94,50 +92,40 @@ function App() {
 	}, [debouncedSearch, pageSize]);
 
 	return (
-		<>
-			<LogoSVG />
-			<TextField
-				label='Search'
-				id='outlined-start-adornment'
-				value={searchInput}
-				onChange={handleSearchChange}
-				sx={{ m: 1, width: '25ch' }}
-				slotProps={{
-					input: {
-						endAdornment: (
-							<InputAdornment position='start'>
-								<SearchIcon />
-							</InputAdornment>
-						),
-					},
-				}}
-			/>
-
-			<FormControl fullWidth>
-				<InputLabel>Sort</InputLabel>
-				<Select value={sort} label='Sort' onChange={handleChange}>
-					<MenuItem value='default'>Default</MenuItem>
-					<MenuItem value='new'>Newest</MenuItem>
-					<MenuItem value='old'>Oldest</MenuItem>
-				</Select>
-			</FormControl>
-
-			<Paper sx={{ height: 400, width: '100%' }}>
-				<DataGrid
-					paginationMode='server'
-					rows={data?.data || []}
+		<Container maxWidth='xl' sx={{ pt: 2 }}>
+			{searchInput === '' ? (
+				<>
+					<Box display='flex' justifyContent='center' mt={8}>
+						<LogoSVG width={180} height={57.6} style={{ marginBottom: 13 }} />
+					</Box>
+					<Box display='flex' justifyContent='center' mt={2}>
+						<Typography variant='h6'>Book Search Assignment</Typography>
+					</Box>
+					<Box display='flex' justifyContent='center' mt={2}>
+						<SearchInput
+							value={searchInput}
+							onChange={handleSearchChange}
+							inputRef={searchInputRef}
+							sx={{ width: { xs: '100%', sm: 489 } }}
+						/>
+					</Box>
+				</>
+			) : (
+				<TableView
+					searchInput={searchInput}
+					handleSearchChange={handleSearchChange}
+					sort={sort}
+					handleChange={handleChange}
+					data={data}
 					columns={columns}
-					paginationModel={{ page: page - 1, pageSize }}
-					onPaginationModelChange={handlePaginationChange}
-					pageSizeOptions={[5, 10, 20]}
-					rowCount={data?.rowCount ?? prevRowCount}
-					loading={isLoading}
-					sx={{ border: 0 }}
-					disableColumnSorting
-					disableColumnMenu
+					page={page}
+					pageSize={pageSize}
+					handlePaginationChange={handlePaginationChange}
+					isLoading={isLoading}
+					prevRowCount={prevRowCount}
 				/>
-			</Paper>
-		</>
+			)}
+		</Container>
 	);
 }
 
