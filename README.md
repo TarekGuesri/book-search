@@ -2,7 +2,7 @@
 
 ## Description
 
-Home Assignment for Study Abroad Global
+Home Assignment
 
 **Live preview:** [Book Search](https://book-search.tariqguesri.com/)
 
