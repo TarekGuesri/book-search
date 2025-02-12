@@ -24,7 +24,7 @@ app.use(helmet());
 if (process.env.NODE_ENV === 'prodcution') {
   const limiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 100,
+    max: 200,
   });
 
   app.use('/rest', limiter);
@@ -49,10 +49,10 @@ app.use('/api', restRouter);
 // Serve static assets in production
 if (process.env.NODE_ENV === 'production') {
   // Set static folder
-  app.use(express.static(path.join(__dirname, 'client/build')));
+  app.use(express.static(path.join(__dirname, 'client/dist')));
 
-  app.get('*', (req, res) =>
-    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html')),
+  app.get('*', (_req, res) =>
+    res.sendFile(path.resolve(__dirname, 'client', 'dist', 'index.html')),
   );
 }
 

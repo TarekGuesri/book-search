@@ -6,7 +6,7 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "start": "set NODE_ENV=production&& node dist/server.js",
+    "start": "set NODE_ENV=production&& node dist/src/server.js",
     "start:dev": "nodemon src/server.ts",
     "test": "jest",
     "test:cov": "jest --coverage",
