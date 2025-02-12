@@ -12,7 +12,7 @@
 		"client": "yarn workspace @book-search/client",
 		"server": "yarn workspace @book-search/server",
 		"start:dev": "concurrently \"yarn server start:dev\" \"yarn client start:dev\" -i --names \"server,client\"",
-		"build": "concurrently \"cd packages/server && yarn build\" \"cd packages/client && yarn build && copyfiles dist/**/** ../server/dist/src/client\"",
+		"build": "concurrently \"cd packages/server && yarn build\" \"cd packages/client && yarn build && cpx 'dist/**/*' ../server/dist/src/client\"",
 		"format": "prettier --write .",
 		"lint": "concurrently \"yarn server lint\" \"yarn client lint\"",
 		"postinstall": "yarn husky install"
@@ -21,7 +21,7 @@
 		"@commitlint/cli": "^17.6.5",
 		"@commitlint/config-conventional": "^17.6.5",
 		"concurrently": "^8.2.0",
-		"copyfiles": "^2.4.1",
+		"cpx": "^1.5.0",
 		"cspell": "^5.12.6",
 		"husky": "^8.0.3",
 		"lerna": "^7.0.0",

@@ -1,5 +1,5 @@
 import express from 'express';
-// import path from 'path';
+import path from 'path';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import morgan from 'morgan';
@@ -46,14 +46,14 @@ if (process.env.NODE_ENV === 'development') {
 // Defining Routes
 app.use('/api', restRouter);
 
-// // Serve static assets in production
-// if (process.env.NODE_ENV === 'production') {
-//   // Set static folder
-//   app.use(express.static(path.join(__dirname, 'client/dist')));
+// Serve static assets in production
+if (process.env.NODE_ENV === 'production') {
+  // Set static folder
+  app.use(express.static(path.join(__dirname, 'client')));
 
-//   app.get('*', (_req, res) =>
-//     res.sendFile(path.resolve(__dirname, 'client', 'dist', 'index.html')),
-//   );
-// }
+  app.get('*', (_req, res) =>
+    res.sendFile(path.resolve(__dirname, 'client', 'index.html')),
+  );
+}
 
 app.use(errorHandler);
