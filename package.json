@@ -11,8 +11,9 @@
 	"scripts": {
 		"client": "yarn workspace @book-search/client",
 		"server": "yarn workspace @book-search/server",
+		"start": "yarn server start",
 		"start:dev": "concurrently \"yarn server start:dev\" \"yarn client start:dev\" -i --names \"server,client\"",
-		"build": "concurrently \"cd packages/server && yarn build\" \"cd packages/client && yarn build && copyfiles dist/**/** ../server/dist/src/client\"",
+		"build": "yarn server build",
 		"format": "prettier --write .",
 		"lint": "concurrently \"yarn server lint\" \"yarn client lint\"",
 		"postinstall": "yarn husky install"
