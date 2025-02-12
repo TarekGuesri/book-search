@@ -12,6 +12,7 @@
 		"client": "yarn workspace @book-search/client",
 		"server": "yarn workspace @book-search/server",
 		"start:dev": "concurrently \"yarn server start:dev\" \"yarn client start:dev\" -i --names \"server,client\"",
+		"start": "yarn server start",
 		"build": "concurrently \"cd packages/server && yarn build\" \"cd packages/client && yarn build && cpx 'dist/**/*' ../server/dist/src/client\"",
 		"format": "prettier --write .",
 		"lint": "concurrently \"yarn server lint\" \"yarn client lint\"",
